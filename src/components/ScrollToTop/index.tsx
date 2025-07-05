@@ -1,8 +1,25 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { FaChevronUp } from "react-icons/fa";
 
 function ScrollToTop() {
+  const [isVisible, setIsVisible] = React.useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -10,13 +27,15 @@ function ScrollToTop() {
     });
   };
   return (
-    <div className="fixed bottom-10 right-10">
-      <button
-        onClick={scrollToTop}
-        className="w-10 h-10 rounded-full bg-main-green flex justify-center items-center cursor-pointer"
-      >
-        <FaChevronUp className="w-6 h-6 text-white" />
-      </button>
+    <div className="fixed bottom-20 right-10">
+      {isVisible && (
+        <button
+          onClick={scrollToTop}
+          className="w-10 h-10 rounded-full bg-main-green flex justify-center items-center cursor-pointer"
+        >
+          <FaChevronUp className="w-6 h-6 text-white" />
+        </button>
+      )}
     </div>
   );
 }

@@ -3,8 +3,11 @@ import React from "react";
 import { InputText, InputTextArea } from "@/components/Input";
 import Button from "@/components/Button";
 import Link from "next/link";
+import { AlertModal } from "@/components/Modal";
+import Swal from "sweetalert2";
 
 function Contact() {
+  const [isLoadingSubmit, setIsLoadingSubmit] = React.useState(false);
   const [error, setError] = React.useState({
     name: "",
     email: "",
@@ -64,24 +67,46 @@ function Contact() {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
-      // Simulate a successful form submission
-      alert("Form submitted successfully!");
-      setFormValue({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
-      setError({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
+      setIsLoadingSubmit(true);
+      try {
+        await simulateSubmit();
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        alert("Terjadi kesalahan saat mengirim pesan. Silakan coba lagi.");
+      }
+      setIsLoadingSubmit(false);
     }
+  };
+
+  const simulateSubmit = () => {
+    return new Promise((resolve) => {
+      // Simulate a successful form submission
+      setTimeout(() => {
+        Swal.fire({
+          title: "Berhasil!",
+          text: "Pesan Anda telah dikirim.",
+          icon: "success",
+          confirmButtonText: "OKE",
+          confirmButtonColor: "#188753",
+        });
+        setFormValue({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+        setError({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+        resolve(true);
+      }, 2000);
+    });
   };
 
   return (
@@ -126,7 +151,13 @@ function Contact() {
           rows={4}
         />
         <br />
-        <Button color="primary" type="submit" className="!rounded-full">
+        <Button
+          isLoading={isLoadingSubmit}
+          color="primary"
+          type="submit"
+          className="!rounded-full"
+          loadingText="Mengirim..."
+        >
           Kirim
         </Button>
       </form>
@@ -153,6 +184,12 @@ function Contact() {
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.262797830583!2d106.8316182147691!3d-6.229043195490949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3ee433e98a3%3A0x1ef5b1d10eb3111!2sHolding%20Perkebunan%20Nusantara%20(PTPN%20III)!5e0!3m2!1sen!2sid!4v1685084959967!5m2!1sen!2sid"
         frameBorder="0"
       ></iframe>
+
+      <AlertModal
+        isOpen={true}
+        onClose={() => setIsLoadingSubmit(false)}
+        message="Pesan Anda sedang dikirim. Mohon tunggu beberapa saat."
+      />
     </div>
   );
 }
