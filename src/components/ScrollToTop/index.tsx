@@ -7,7 +7,14 @@ function ScrollToTop() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 100) {
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+
+      const scrollPosition = scrollTop + windowHeight;
+      const scrollPercent = scrollPosition / docHeight;
+
+      if (scrollPercent > 0.5) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
