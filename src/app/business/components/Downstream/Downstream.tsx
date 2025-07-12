@@ -3,7 +3,7 @@ import React from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
-import style from "./DownstreamStyle.module.css";
+import style from "./DownStreamStyle.module.css";
 import classNames from "classnames";
 import { motion } from "motion/react";
 import Button from "@/components/Button";
