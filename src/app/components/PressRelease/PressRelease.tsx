@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Button from "@/components/Button";
+import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 
 function PressRelease() {
   const [displayShowMore, setDisplayShowMore] = useState(true);
@@ -88,14 +89,20 @@ function PressRelease() {
       </div>
       {displayShowMore ? (
         <div className="flex justify-center py-10">
-          <Button color="primary" variant="outline" onClick={loadMoreNews}>
-            Muat Lebih Banyak
+          <Button color="primary" variant="ghost" onClick={loadMoreNews}>
+            <div className="flex justify-between items-center gap-2">
+              <p>Muat Lebih Banyak</p>
+              <IoChevronDown className="text-main-green" />
+            </div>
           </Button>
         </div>
       ) : (
         <div className="flex justify-center py-10">
-          <Button color="primary" variant="outline" onClick={loadLessNews}>
-            Muat Lebih Sedikit
+          <Button color="primary" variant="ghost" onClick={loadLessNews}>
+            <div className="flex justify-between items-center gap-2">
+              <p>Muat Lebih Sedikit</p>
+              <IoChevronUp className="text-main-green" />
+            </div>
           </Button>
         </div>
       )}

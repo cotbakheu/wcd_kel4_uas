@@ -4,7 +4,6 @@ import { MdMyLocation } from "react-icons/md";
 import { FaLocationPin } from "react-icons/fa6";
 import classNames from "classnames";
 import style from "./BusinessAreaStyle.module.css";
-import Link from "next/link";
 
 type LocationProps = {
   coord: {
@@ -17,21 +16,35 @@ type LocationProps = {
     y: number;
   };
   regional: number;
+  index: number;
 };
 
-function Location({ coord, image, size, regional }: LocationProps) {
+function Location({ coord, image, size, regional, index }: LocationProps) {
   return (
-    <Link
-      href={"#"}
-      className="absolute"
-      style={{ top: coord.y, left: coord.x }}
-    >
+    <div className="absolute" style={{ top: coord.y, left: coord.x }}>
       <div
         className={classNames(
           style["location-container"],
-          "relative cursor-pointer"
+          "relative cursor-pointer",
+          `z-[${index + 1}]`
         )}
       >
+        <div
+          className={classNames(
+            style["map-container"],
+            "absolute top-[-245px] left-[-80px] w-[200px] h-[200px] p-4 border bg-white border-gray-400 rounded-lg"
+          )}
+        >
+          <iframe
+            width={"100%"}
+            height={"150px"}
+            title="Google Maps"
+            loading="lazy"
+            style={{ border: 0 }}
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.262797830583!2d106.8316182147691!3d-6.229043195490949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f8.0!3m3!1m2!1s0x2e69f3ee433e98a3%3A0x1ef5b1d10eb3111!2sHolding%20Perkebunan%20Nusantara%20(PTPN%20III)!5e0!3m2!1sen!2sid!4v1685084959967!5m2!1sen!2sid"
+            frameBorder="0"
+          ></iframe>
+        </div>
         <MdMyLocation className="w-8 h-8" />
         <div className={classNames(style["marker"])}>
           <p className="font-bold w-52">Regional {regional}</p>
@@ -48,7 +61,7 @@ function Location({ coord, image, size, regional }: LocationProps) {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
@@ -137,7 +150,7 @@ function BusinessArea() {
         Wilayah Kerja
       </h3>
       <div className="flex justify-center">
-        <div className="relative w-[80%]" style={{ aspectRatio: "16/9" }}>
+        <div className="relative w-[1180px]" style={{ aspectRatio: "16/9" }}>
           <Image
             src="https://ptpn1.co.id/wp-content/themes/logistic_new/asset_apn/map/map.png"
             alt="map"
@@ -147,6 +160,7 @@ function BusinessArea() {
           {locationData.map((item, index) => (
             <Location
               key={index}
+              index={index}
               coord={item.coord}
               image={item.image}
               size={item.size}

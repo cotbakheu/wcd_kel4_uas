@@ -8,11 +8,17 @@
     top: -71px;
     left: -16px;
     transition: all 0.3s ease-in-out;
+    width: 60px;
 }
 
-.location-container:hover .marker {
-    opacity: 1;
-    transform: scale(1.5);
-    left: 22px;
-    top: -90px;
+.map-container {
+    display: none;
+}
+
+.location-container:hover {
+    z-index: 11;
+}
+
+.location-container:hover .map-container {
+    display: block;
 }

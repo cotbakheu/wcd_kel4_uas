@@ -75,17 +75,22 @@ function Footer() {
         style={{ opacity: altHeaderOpacity }}
       >
         <div className="w-1/6">
-          <Image
-            alt="logo"
-            src={
-              "https://ptpn1.co.id/wp-content/themes/logistic_new/asset_apn/logo/membern1.png"
-            }
-            width={50}
-            height={50}
-          />
+          <Link href={"/"}>
+            <Image
+              alt="logo"
+              src={
+                "https://ptpn1.co.id/wp-content/themes/logistic_new/asset_apn/logo/membern1.png"
+              }
+              width={50}
+              height={50}
+            />
+          </Link>
         </div>
         <div className="flex flex-col items-end justify-end gap-6 flex-1 text-sm text-black">
           <ul className="flex gap-20 font-semibold text-lg">
+            <li>
+              <Link href={"/business"}>Bisnis Kami</Link>
+            </li>
             <li>
               <DropdownButton
                 list={aboutSubMenu.map((item, index) => (
@@ -141,28 +146,33 @@ function Footer() {
       </header>
       <header className="flex py-4 px-36 items-center absolute z-50 top-0 left-0 w-full">
         <div className="w-1/6">
-          <Image
-            alt="logo"
-            src={
-              "https://ptpn1.co.id/wp-content/themes/logistic_new/asset_apn/logo/membern1.png"
-            }
-            width={100}
-            height={100}
-          />
+          <Link href={"/"}>
+            <Image
+              alt="logo"
+              src={
+                "https://ptpn1.co.id/wp-content/themes/logistic_new/asset_apn/logo/membern1.png"
+              }
+              width={100}
+              height={100}
+            />
+          </Link>
         </div>
         <div className="flex flex-col items-end justify-end gap-6 flex-1 text-sm text-white">
           <ul className="flex gap-10">
             <li>
-              <Link href={"#business-area"}>Wilayah Kerja</Link>
+              <Link href={"/#business-area"}>Wilayah Kerja</Link>
             </li>
             <li>
-              <Link href={"#press-release"}>Siaran Pers</Link>
+              <Link href={"/#press-release"}>Siaran Pers</Link>
             </li>
             <li>
-              <Link href={"#contact"}>Kontak</Link>
+              <Link href={"/#contact"}>Kontak</Link>
             </li>
           </ul>
           <ul className="flex gap-20 font-semibold text-lg">
+            <li>
+              <Link href={"/business"}>Bisnis Kami</Link>
+            </li>
             <li>
               <DropdownButton
                 list={aboutSubMenu.map((item, index) => (
